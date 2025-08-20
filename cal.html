@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>carbon footprint calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .container{
+            max-width:800px;
+            margin: auto;
+            background:white;
+            padding:20px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0,0,0.3);
+        }
+        h1{
+            font-size: 46px;
+            text-decoration:underline;
+
+        }
+        label{
+            font-size: 20px;
+            font-weight:bold;
+            display:block;
+            margin:15px 0 5px;
+        }
+        input{
+            font-size: 20px;
+            font-weight:bold;
+            text-align: center;
+            width:80%;
+            padding:5px;
+        }
+        #result{
+            font-size: 24px;
+             font-weight: bold;
+            margin-top: 20px;
+            color:green;
+           
+        }
+        button {
+            font-size: 30px;
+            font-weight: bold;
+            margin:10px; 
+            padding: 10px 30px;
+            border-radius: 10px;
+            border:bold;
+            cursor: pointer;
+            width:204px; 
+        }
+
+    </style>
+</head>
+<body>
+    <div class = "container"> 
+
+     <h1>Carbon Footprint Calculator</h1> 
+
+     <label for ="Electricity">Electricity usage(kWh):</label>
+     <input type ="number" id = "Electricity" placeholder = " Enter electricity usage">
+     
+       <label for ="Fuel">Fuel usage(kWh):</label>
+       <input type ="number" id = "Fuel" placeholder = " Enter Fuel usage"> 
+        
+       <label for ="Transport"> Transport usage(km):</label>
+       <input type ="number" id = "transport" placeholder = " Enter Transport usage"> 
+
+        <p id = "result"></p>
+
+         <div>
+            <button onclick = "CalculateCarbonFootprint()">Calculator</button> 
+             <button onclick = "ireset()">Reset  </button> 
+              <button onclick = "iExit()">Exit</button> 
+
+         </div>
+    </div>
+    <script>  
+     function CalculateCarbonFootprint() {
+      try{
+        const elecricityEmissionFactor = 0.5;
+         const FuelEmissionFactor = 2.3;
+         const transportEmissionFactor = 0.5;
+          
+         const ElectricityUsage = parseFloat (document.getElementById("Electricity").value);
+          const FuelUsage = parseFloat (document.getElementById("Fuel").value);
+          const transportUsage = parseFloat (document.getElementById("transport").value);
+
+            if (isNaN(ElectricityUsage) || isNaN(FuelUsage) || isNaN(transportUsage)) {
+                alert("Please enter valid numbers!");
+                ireset();
+                return;
+      } 
+        const elecricityEmission = ElectricityUsage* elecricityEmissionFactor;
+         const FuelEmission = FuelUsage * FuelEmissionFactor;
+         const transportEmission = transportUsage * transportEmissionFactor;
+          
+          const totalEmission = elecricityEmission + FuelEmission + transportEmission;
+            document.getElementById("result").innerText = "Total carbon footprint: " + totalEmission.toFixed(2)+"kg CO₂";
+    }
+    catch (error) {
+        console.error("Error calculating carbon footprint!"); 
+        alert("An error occurred while calculating the carbon footprint. Please try again.");
+    }
+}
+      function ireset() {
+        document.getElementById("Electricity").value = "";
+        document.getElementById("Fuel").value = "";
+        document.getElementById("transport").value = "";
+        document.getElementById("result").innerText = ""; 
+        document.getElementById("Electricity").focus();
+
+      }    
+
+        function iExit() {
+            if (confirm("Are you sure you want to exit?")) {
+                window.close(); 
+            }
+        }
+
+
+    </script>
+    
+</body> 
+</html>
